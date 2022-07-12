@@ -1,11 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"map-reduce-client/client"
 	mapreduce "map-reduce-client/mapReduce"
-
-	// mapreduce "map-reduce-client/mapReduce"
-	"fmt"
 	"os"
 	"strconv"
 )
