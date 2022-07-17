@@ -10,34 +10,34 @@ import (
 	"time"
 )
 
-func Run(method string, jobName string, numberOfMapOutput int, path string, column string, clients []client.Client) {
+func Run(useCase string, jobName string, numberOfMapOutput int, path string, column string, clients []client.Client) {
 	files := common.OpenFiles(column)
 
 	start := time.Now()
-	shuffleSort.DoMap(jobName, files, numberOfMapOutput, method, path, column, clients)
+	shuffleSort.DoMap(jobName, files, numberOfMapOutput, useCase, path, column, clients)
 	elapsed := time.Since(start)
 
 	fmt.Println("Map phase took:", elapsed)
 
 	start = time.Now()
-	shuffleSort.DoReduce(jobName, numberOfMapOutput, len(files), method, path, clients)
+	shuffleSort.DoReduce(jobName, numberOfMapOutput, len(files), useCase, path, clients)
 
 	elapsed = time.Since(start)
 
 	fmt.Println("Reduce phase took:", elapsed)
 
-	// if method != "netflix" {
+	// if useCase != "netflix" {
 	//common.Merge0rderByOccurrence(numberOfMapOutput, jobName)
 	// } else {
 	common.MergeAlphabeticalOrder(numberOfMapOutput, jobName)
 	// }
-	test(method, jobName, len(files), column)
+	test(useCase, jobName, len(files), column)
 
 }
-func test(method string, jobName string, numberOfFiles int, column string) {
+func test(useCase string, jobName string, numberOfFiles int, column string) {
 	var resultFileName string
-	if method != "netflix" {
-		if method == "ii" {
+	if useCase != "netflix" {
+		if useCase == "ii" {
 			resultFileName = "result-" + strconv.Itoa(numberOfFiles) + "files-" + "invertedIndex" + ".txt"
 		} else {
 			resultFileName = "result-" + strconv.Itoa(numberOfFiles) + "files-" + "WordCount" + ".txt"

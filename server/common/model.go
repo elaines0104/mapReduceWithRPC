@@ -10,7 +10,7 @@ type Response struct {
 }
 
 type MapStep struct {
-	Method            string
+	UseCase           string
 	JobName           string
 	File              string
 	MapStepNumber     int
@@ -19,7 +19,7 @@ type MapStep struct {
 	Column            string
 }
 type ReduceStep struct {
-	Method           string
+	UseCase          string
 	JobName          string
 	ReduceStepNumber int
 	NumberOfFiles    int

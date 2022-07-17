@@ -15,7 +15,7 @@ type API int
 
 func (a *API) DoMapStep(item common.MapStep, reply *common.Response) error {
 	log.Printf("DoMapStep: %d", item.MapStepNumber)
-	err := mapper.DoMapStep(item, reply)
+	err := mapper.DoMapStep(item)
 	if err != nil {
 		log.Printf("ERROR")
 		reply.Message = "error"
@@ -30,7 +30,7 @@ func (a *API) DoMapStep(item common.MapStep, reply *common.Response) error {
 
 func (a *API) DoReduceStep(item common.ReduceStep, reply *common.Response) error {
 	log.Println("DoReduceStep: ", item.ReduceStepNumber)
-	err := reducer.DoReduceStep(item, reply)
+	err := reducer.DoReduceStep(item)
 
 	if err != nil {
 		log.Printf("ERROR")

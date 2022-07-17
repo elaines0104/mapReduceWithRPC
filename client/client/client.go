@@ -29,7 +29,7 @@ type Response struct {
 }
 
 type MapStep struct {
-	Method            string
+	UseCase           string
 	JobName           string
 	File              string
 	MapStepNumber     int
@@ -38,7 +38,7 @@ type MapStep struct {
 	Column            string
 }
 type ReduceStep struct {
-	Method           string
+	UseCase          string
 	JobName          string
 	ReduceStepNumber int
 	NumberOfFiles    int
@@ -53,17 +53,17 @@ func (c Client) HealthCheck(url string) {
 
 }
 
-func (c Client) DoMapStep(method string, jobName string, mapStepNumber int, file string, numberOfMapOutput int, path string, column string) {
+func (c Client) DoMapStep(useCase string, jobName string, mapStepNumber int, file string, numberOfMapOutput int, path string, column string) {
 	var reply Response
-	item := MapStep{method, jobName, file, mapStepNumber, numberOfMapOutput, path, column}
+	item := MapStep{useCase, jobName, file, mapStepNumber, numberOfMapOutput, path, column}
 
 	c.client.Call("API.DoMapStep", item, &reply)
 	//log.Println(reply.Message)
 
 }
-func (c Client) DoReduceStep(method string, jobName string, reduceStepNumber int, numberOfFiles int, path string) {
+func (c Client) DoReduceStep(useCase string, jobName string, reduceStepNumber int, numberOfFiles int, path string) {
 	var reply Response
-	item := ReduceStep{method, jobName, reduceStepNumber, numberOfFiles, path}
+	item := ReduceStep{useCase, jobName, reduceStepNumber, numberOfFiles, path}
 
 	c.client.Call("API.DoReduceStep", item, &reply)
 

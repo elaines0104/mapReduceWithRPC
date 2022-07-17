@@ -12,20 +12,20 @@ import (
 	"sort"
 )
 
-func DoReduceStep(item common.ReduceStep, reply *common.Response) error {
+func DoReduceStep(item common.ReduceStep) error {
 	var reduceF func(key string, values []string) string
 
-	if item.Method == "wordcount" {
+	if item.UseCase == "wordcount" {
 		reduceF = wordCount.WordCountReduceF
 
-	} else if item.Method == "ii" {
+	} else if item.UseCase == "ii" {
 		reduceF = invertedIndex.InvertedIndexReduceF
 
-	} else if item.Method == "netflix" {
+	} else if item.UseCase == "netflix" {
 		reduceF = netflixData.NetflixDataReduceF
 
 	} else {
-		return fmt.Errorf("invalid method")
+		return fmt.Errorf("invalid UseCase")
 	}
 	doReduceStep(item.JobName, item.ReduceStepNumber, item.NumberOfFiles, reduceF, item.Path)
 

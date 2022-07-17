@@ -8,7 +8,7 @@ import (
 func DoMap(jobName string,
 	files []string,
 	numberOfMapOutput int,
-	method string,
+	useCase string,
 	path string,
 	column string,
 	clients []client.Client) {
@@ -22,7 +22,7 @@ func DoMap(jobName string,
 		j := i % len(clients)
 		go func() {
 			defer wg.Done()
-			clients[j].DoMapStep(method, jobName, i, file, numberOfMapOutput, path, column)
+			clients[j].DoMapStep(useCase, jobName, i, file, numberOfMapOutput, path, column)
 		}()
 
 	}
@@ -34,7 +34,7 @@ func DoReduce(
 	jobName string,
 	numberOfMapOutput int,
 	numberOfFiles int,
-	method string,
+	useCase string,
 	path string,
 	clients []client.Client) {
 
@@ -48,7 +48,7 @@ func DoReduce(
 		go func() {
 			defer wg.Done()
 
-			clients[j].DoReduceStep(method, jobName, m, numberOfFiles, path)
+			clients[j].DoReduceStep(useCase, jobName, m, numberOfFiles, path)
 
 		}()
 

@@ -4,13 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"hash/fnv"
-	"os"
-	"sync"
-	"map-reduce-server/wordCount"
+	"log"
+	"map-reduce-server/common"
 	"map-reduce-server/invertedIndex"
 	"map-reduce-server/netflixData"
-	"map-reduce-server/common"
-	"log"
+	"map-reduce-server/wordCount"
+	"os"
+	"sync"
 )
 
 func ihash(s string) uint32 {
@@ -19,29 +19,28 @@ func ihash(s string) uint32 {
 	return h.Sum32()
 }
 
-func DoMapStep(item common.MapStep, reply *common.Response) error {
+func DoMapStep(item common.MapStep) error {
 	var mapF func(file string, contents string) []common.KeyValue
-	log.Printf("method %s",item.Method)
+	log.Printf("UseCase %s", item.UseCase)
 
-	if item.Method == "wordcount" {
+	if item.UseCase == "wordcount" {
 		mapF = wordCount.WordCountMapF
 
-	} else if item.Method == "ii" {
+	} else if item.UseCase == "ii" {
 		mapF = invertedIndex.InvertedIndexMapF
 
-	} else if item.Method == "netflix" {
+	} else if item.UseCase == "netflix" {
 		mapF = netflixData.NetflixDataMapF
 
-	}else{
-		log.Printf("Invalid Method %s",item.Method)
-		return fmt.Errorf("Invalid Method")
+	} else {
+		log.Printf("Invalid UseCase %s", item.UseCase)
+		return fmt.Errorf("Invalid UseCase")
 	}
 
-	doMapStep(item.JobName, item.MapStepNumber, item.File, item.NumberOfMapOutput, mapF, item.Path,item.Column)
+	doMapStep(item.JobName, item.MapStepNumber, item.File, item.NumberOfMapOutput, mapF, item.Path, item.Column)
 	return nil
 
 }
-
 
 func doMapStep(
 	jobName string,
@@ -51,7 +50,7 @@ func doMapStep(
 	mapF func(file string, contents string) []common.KeyValue,
 	path string,
 	column string) {
-		log.Printf(inFile)
+	log.Printf(inFile)
 
 	kvList := mapF(inFile, getContent(inFile, column))
 

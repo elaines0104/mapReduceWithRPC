@@ -11,12 +11,12 @@ import (
 func main() {
 	var numberOfMapOutput int
 	var jobName string
-	var method string
+	var useCase string
 
 	path := "/path/to/mapReduceWithRPC/client/"
-	method = "wordcount"
-	//method = "ii"
-	//method = "netflix"
+	useCase = "wordcount"
+	//useCase = "ii"
+	//useCase = "netflix"
 
 	column := ""
 	// if neflix data
@@ -32,7 +32,7 @@ func main() {
 	jobName = "teste"
 
 	fmt.Println("Number of servers:", os.Args[1])
-	fmt.Println("MapReduce method:", method, column)
+	fmt.Println("MapReduce useCase:", useCase, column)
 
 	nServers, _ := strconv.Atoi(os.Args[1])
 	var clients []client.Client
@@ -44,6 +44,6 @@ func main() {
 		clients[i].HealthCheck(local)
 	}
 
-	mapreduce.Run(method, jobName, numberOfMapOutput, path, column, clients)
+	mapreduce.Run(useCase, jobName, numberOfMapOutput, path, column, clients)
 
 }
