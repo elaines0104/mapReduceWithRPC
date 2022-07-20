@@ -109,8 +109,8 @@ func OpenFiles(column string) []string {
 	var files []string
 
 	if column == "" {
-		root := "/path/to/mapReduceWithRPC/client/machado-txt/"
-		//root := "/path/to/mapReduceWithRPC/client/teste/"
+		root := "/home/elaine/Downloads/TCC/versoes/github/mapReduceWithRPC/client/machado-txt/"
+		//root := "/home/elaine/Downloads/TCC/versoes/github/mapReduceWithRPC/client/teste/"
 		err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
 			files = append(files, path)
 			return nil
@@ -122,7 +122,7 @@ func OpenFiles(column string) []string {
 		files = files[1:]
 		return files
 	} else {
-		inFile := "/path/to/mapReduceWithRPC/client/netflix/netflix_titles.csv"
+		inFile := "/home/elaine/Downloads/TCC/versoes/github/mapReduceWithRPC/client/netflix/netflix_titles.csv"
 		files := append(files, inFile)
 		return files
 

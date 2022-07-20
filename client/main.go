@@ -13,17 +13,17 @@ func main() {
 	var jobName string
 	var useCase string
 
-	path := "/path/to/mapReduceWithRPC/client/"
-	useCase = "wordcount"
+	path := "/home/elaine/Downloads/TCC/versoes/github/mapReduceWithRPC/client/"
+	//useCase = "wordcount"
 	//useCase = "ii"
-	//useCase = "netflix"
+	useCase = "netflix"
 
-	column := ""
+	//column := ""
 	// if neflix data
 	// column := "type"
 	//column := "director"
 	// column := "cast"
-	//column := "country"
+	column := "country"
 	// column := "release_year"
 	// column := "duration"
 	// column := "listed_in"
